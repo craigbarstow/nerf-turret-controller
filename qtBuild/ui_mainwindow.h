@@ -16,7 +16,9 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -32,7 +34,12 @@ public:
     QGraphicsView *graphicsView;
     QPushButton *btnOpenVideo;
     QLabel *frameCountLabel;
+    QPushButton *btnPreviousFrame;
+    QPushButton *btnNextFrame;
+    QPushButton *btnCloseVideo;
+    QLineEdit *lineEditFilename;
     QMenuBar *menuBar;
+    QMenu *menuClassifier_Image_Selector;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -40,7 +47,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(512, 520);
+        MainWindow->resize(510, 520);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsView = new QGraphicsView(centralWidget);
@@ -48,14 +55,28 @@ public:
         graphicsView->setGeometry(QRect(10, 0, 491, 311));
         btnOpenVideo = new QPushButton(centralWidget);
         btnOpenVideo->setObjectName(QStringLiteral("btnOpenVideo"));
-        btnOpenVideo->setGeometry(QRect(200, 360, 115, 32));
+        btnOpenVideo->setGeometry(QRect(10, 390, 115, 32));
         frameCountLabel = new QLabel(centralWidget);
         frameCountLabel->setObjectName(QStringLiteral("frameCountLabel"));
-        frameCountLabel->setGeometry(QRect(220, 420, 59, 16));
+        frameCountLabel->setGeometry(QRect(190, 360, 191, 20));
+        btnPreviousFrame = new QPushButton(centralWidget);
+        btnPreviousFrame->setObjectName(QStringLiteral("btnPreviousFrame"));
+        btnPreviousFrame->setGeometry(QRect(10, 320, 241, 32));
+        btnNextFrame = new QPushButton(centralWidget);
+        btnNextFrame->setObjectName(QStringLiteral("btnNextFrame"));
+        btnNextFrame->setGeometry(QRect(260, 320, 241, 32));
+        btnCloseVideo = new QPushButton(centralWidget);
+        btnCloseVideo->setObjectName(QStringLiteral("btnCloseVideo"));
+        btnCloseVideo->setGeometry(QRect(10, 430, 115, 32));
+        lineEditFilename = new QLineEdit(centralWidget);
+        lineEditFilename->setObjectName(QStringLiteral("lineEditFilename"));
+        lineEditFilename->setGeometry(QRect(130, 390, 351, 31));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 512, 22));
+        menuBar->setGeometry(QRect(0, 0, 510, 22));
+        menuClassifier_Image_Selector = new QMenu(menuBar);
+        menuClassifier_Image_Selector->setObjectName(QStringLiteral("menuClassifier_Image_Selector"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -64,6 +85,8 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
+        menuBar->addAction(menuClassifier_Image_Selector->menuAction());
+
         retranslateUi(MainWindow);
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -71,9 +94,13 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        btnOpenVideo->setText(QApplication::translate("MainWindow", "Open Video", 0));
-        frameCountLabel->setText(QApplication::translate("MainWindow", "0", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Image Selector", 0));
+        btnOpenVideo->setText(QApplication::translate("MainWindow", "Select Video", 0));
+        frameCountLabel->setText(QApplication::translate("MainWindow", "Frame Number: 0", 0));
+        btnPreviousFrame->setText(QApplication::translate("MainWindow", "Previous Frame", 0));
+        btnNextFrame->setText(QApplication::translate("MainWindow", "Next Frame", 0));
+        btnCloseVideo->setText(QApplication::translate("MainWindow", "Close Video", 0));
+        menuClassifier_Image_Selector->setTitle(QApplication::translate("MainWindow", "Classifier Image Selector", 0));
     } // retranslateUi
 
 };

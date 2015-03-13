@@ -19,9 +19,7 @@ void VideoManager::openConnection(QString filePath) {
 }
 
 void VideoManager::closeConnection() {
-    /*
     if (_video->isOpened()) {
         _video->release();
     }
-    */
 }

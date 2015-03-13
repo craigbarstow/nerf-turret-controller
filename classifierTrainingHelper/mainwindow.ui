@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
+    <width>510</width>
     <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Image Selector</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -27,27 +27,76 @@
    <widget class="QPushButton" name="btnOpenVideo">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>360</y>
+      <x>10</x>
+      <y>390</y>
       <width>115</width>
       <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Open Video</string>
+     <string>Select Video</string>
     </property>
    </widget>
    <widget class="QLabel" name="frameCountLabel">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>420</y>
-      <width>59</width>
-      <height>16</height>
+      <x>190</x>
+      <y>360</y>
+      <width>191</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>0</string>
+     <string>Frame Number: 0</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPreviousFrame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>241</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Previous Frame</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnNextFrame">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>320</y>
+      <width>241</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Next Frame</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCloseVideo">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>430</y>
+      <width>115</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Close Video</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditFilename">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>390</y>
+      <width>351</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -56,10 +105,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>512</width>
+     <width>510</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuClassifier_Image_Selector">
+    <property name="title">
+     <string>Classifier Image Selector</string>
+    </property>
+   </widget>
+   <addaction name="menuClassifier_Image_Selector"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

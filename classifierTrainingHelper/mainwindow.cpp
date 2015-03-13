@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->lineEditFilename->setReadOnly(true);
     _videoMan = new VideoManager;
+    _frameCount = 0;
 }
 
 MainWindow::~MainWindow()
@@ -17,24 +19,37 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnOpenVideo_clicked()
 {
-    this->_fileName = QFileDialog::getOpenFileName(this);
-    if(this->_fileName.isEmpty()) {
+    //FIXME: only accept movie extensions
+    _filePath = QFileDialog::getOpenFileName(this, "Select a movie file.", "/Users/Craig");
+    if(this->_filePath.isEmpty()) {
         return;
+    } else {
+     ui->lineEditFilename->setText(_filePath);
+     _videoMan->openConnection(_filePath);
     }
 }
 
-void MainWindow::processVideo()
+void MainWindow::on_btnNextFrame_clicked()
 {
-    int frameCount = 0;
-    _videoMan->openConnection("./test.avi");
+   _frameCount++;
+   updateFrameCountLabel();
+}
 
-    while (_processing) {
-
-        qDebug() << "frame count = "+ QString::number(frameCount);
-        frameCount++;
+void MainWindow::on_btnPreviousFrame_clicked()
+{
+    if (_frameCount > 0) {
+        _frameCount--;
+        updateFrameCountLabel();
     }
+}
+
+void MainWindow::updateFrameCountLabel()
+{
+    ui->frameCountLabel->setText("Frame Number: "+QString::number(_frameCount));
+}
+
+void MainWindow::on_btnCloseVideo_clicked()
+{
+    ui->lineEditFilename->setText("");
     _videoMan->closeConnection();
 }
-
-
-

@@ -22,13 +22,20 @@ public:
 private slots:
     void on_btnOpenVideo_clicked();
 
+    void on_btnNextFrame_clicked();
+
+    void on_btnPreviousFrame_clicked();
+
+    void on_btnCloseVideo_clicked();
+
 private:
     Ui::MainWindow *ui;
     VideoManager *_videoMan;
     bool _processing;
-    QString _fileName;
+    int _frameCount;
+    QString _filePath;
 
-    void processVideo();
+    void updateFrameCountLabel();
 };
 
 #endif // MAINWINDOW_H
