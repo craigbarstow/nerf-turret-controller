@@ -33,6 +33,7 @@ void MainWindow::on_btnNextFrame_clicked()
 {
    _frameCount++;
    updateFrameCountLabel();
+   displayFrame();
 }
 
 void MainWindow::on_btnPreviousFrame_clicked()
@@ -40,6 +41,7 @@ void MainWindow::on_btnPreviousFrame_clicked()
     if (_frameCount > 0) {
         _frameCount--;
         updateFrameCountLabel();
+        displayFrame();
     }
 }
 
@@ -53,3 +55,19 @@ void MainWindow::on_btnCloseVideo_clicked()
     ui->lineEditFilename->setText("");
     _videoMan->closeConnection();
 }
+
+void MainWindow::displayFrame()
+{
+    Mat frame_Mat = _videoMan->getFrame(_frameCount);
+    //QImage frame = Mat2QImage(frame_Mat);
+}
+
+
+
+
+
+
+
+
+
+

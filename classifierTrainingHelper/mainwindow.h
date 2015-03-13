@@ -36,6 +36,7 @@ private:
     QString _filePath;
 
     void updateFrameCountLabel();
+    void displayFrame();
 };
 
 #endif // MAINWINDOW_H

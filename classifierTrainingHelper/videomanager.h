@@ -15,6 +15,7 @@ public:
     ~VideoManager();
     void openConnection(QString filePath);
     void closeConnection();
+    Mat getFrame(int frameNum);
 
 private:
     VideoCapture *_video;
