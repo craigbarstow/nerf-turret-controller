@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnPlayPause">
+   <widget class="QPushButton" name="btnOpenVideo">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -34,7 +34,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Play</string>
+     <string>Open Video</string>
     </property>
    </widget>
    <widget class="QLabel" name="frameCountLabel">

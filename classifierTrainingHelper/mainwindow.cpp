@@ -10,34 +10,30 @@ MainWindow::MainWindow(QWidget *parent) :
     _videoMan = new VideoManager;
 }
 
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void MainWindow::on_btnPlayPause_clicked()
+void MainWindow::on_btnOpenVideo_clicked()
 {
-    if (!_processing) {
-        ui->btnPlayPause->setText("Pause");
-        _processing = true;
-        processVideo();
-    } else {
-        ui->btnPlayPause->setText("Play");
-        _processing = false;
+    this->_fileName = QFileDialog::getOpenFileName(this);
+    if(this->_fileName.isEmpty()) {
+        return;
     }
 }
 
 void MainWindow::processVideo()
 {
     int frameCount = 0;
+    _videoMan->openConnection("./test.avi");
 
     while (_processing) {
+
         qDebug() << "frame count = "+ QString::number(frameCount);
         frameCount++;
     }
-
+    _videoMan->closeConnection();
 }
 
 

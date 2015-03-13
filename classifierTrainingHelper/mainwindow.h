@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
 #include "opencv2/highgui/highgui.hpp"
-#include <iostream>
 #include "videomanager.h"
 
 namespace Ui {
@@ -20,12 +20,14 @@ public:
 
 
 private slots:
-    void on_btnPlayPause_clicked();
+    void on_btnOpenVideo_clicked();
 
 private:
     Ui::MainWindow *ui;
     VideoManager *_videoMan;
     bool _processing;
+    QString _fileName;
+
     void processVideo();
 };
 

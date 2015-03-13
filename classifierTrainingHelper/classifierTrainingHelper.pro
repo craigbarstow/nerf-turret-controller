@@ -23,8 +23,18 @@ FORMS    += mainwindow.ui
 
 
 INCLUDEPATH += /usr/local/include\
-LIBS += -L/usr/local/lib \
-     -lopencv_core \
-     -lopencv_imgproc \
-     -lopencv_features2d\
-     -lopencv_highgui
+
+LIBS += -L/usr/local/lib
+LIBS += -lopencv_core
+LIBS += -lopencv_imgproc
+LIBS += -lopencv_highgui
+LIBS += -lopencv_ml
+LIBS += -lopencv_video
+LIBS += -lopencv_videostab
+LIBS += -lopencv_features2d
+LIBS += -lopencv_calib3d
+LIBS += -lopencv_objdetect
+LIBS += -lopencv_contrib
+LIBS += -lopencv_legacy
+LIBS += -lopencv_flann
+

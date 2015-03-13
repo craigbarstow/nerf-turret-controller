@@ -2,7 +2,7 @@
 
 import cv2, sys
 
-debug = False
+debug = True
 pos_relative_origin_x = 0
 pos_relative_origin_y = 0
 
@@ -42,7 +42,7 @@ while True:
 
     # Debug stuff
     if debug:
-        cv2.imshow('Video', frame)
+        cv2.imshow("Face Tracker", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
