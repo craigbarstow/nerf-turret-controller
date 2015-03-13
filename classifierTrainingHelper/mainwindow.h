@@ -24,8 +24,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    VideoManager *videoMan;
-    bool processing;
+    VideoManager *_videoMan;
+    bool _processing;
     void processVideo();
 };
 
