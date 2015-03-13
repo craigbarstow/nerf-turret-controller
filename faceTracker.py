@@ -1,3 +1,5 @@
+#!/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/bin/python2.7
+
 import cv2, sys
 
 debug = False
