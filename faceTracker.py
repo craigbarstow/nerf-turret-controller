@@ -1,6 +1,6 @@
-import cv2
+import cv2, sys
 
-debug = True
+debug = False
 pos_relative_origin_x = 0
 pos_relative_origin_y = 0
 
@@ -9,11 +9,13 @@ video_capture = cv2.VideoCapture(0)
 
 while True:
     ret, frame = video_capture.read()
+    #get image size in px
+    img_height, img_width, img_depth = frame.shape
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    grayscale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(
-        gray,
+        grayscale,
         scaleFactor=1.1,
         minNeighbors=5,
         minSize=(30, 30),
@@ -21,9 +23,19 @@ while True:
     )
 
     #place circle over center of face
-    print faces
+    #get dimensions of face
     for (x, y, w, h) in faces:
-        cv2.circle(frame, (int(x+w*.5), int(y+h*.5)), 10, (0, 0, 255), 17)
+        #FIXME, only assign these once
+        center_coord_x = int(img_width * .5)
+        center_coord_y = int(img_height * .5)
+
+        face_x_center = int(x+w*.5)
+        face_y_center = int(y+h*.5)
+
+        print str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center)
+
+        if debug:
+            cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
 
     # Debug stuff
     if debug:
