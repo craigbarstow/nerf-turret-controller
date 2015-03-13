@@ -22,8 +22,7 @@ while True:
         flags=cv2.cv.CV_HAAR_FIND_BIGGEST_OBJECT
     )
 
-    #place circle over center of face
-    #get dimensions of face
+    #get dimensions of largest face
     for (x, y, w, h) in faces:
         #FIXME, only assign these once
         center_coord_x = int(img_width * .5)
@@ -32,9 +31,11 @@ while True:
         face_x_center = int(x+w*.5)
         face_y_center = int(y+h*.5)
 
-        print str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center)
+        #output coordinates of face center, using image center as origin
+        sys.stdout.write(str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\r\n")
 
         if debug:
+            #place circle over center of face
             cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
 
     # Debug stuff
