@@ -1,8 +1,10 @@
 import cv2, sys
 
-DEBUG = True
+DEBUG = False
 TARGETING_SENSITIVITY = 15
 RETURN_ORIGIN_FRAME_COUNT = 20
+HOLD_FIRE_CHARACTER = "\n"
+FIRE_CHARACTER = "\r"
 
 pos_relative_origin_x = 0
 pos_relative_origin_y = 0
@@ -41,10 +43,13 @@ while True:
             dist_y = center_coord_y - face_y_center
 
             #FIXME: experiment with these values
+            #Set hold fire character as default
+            endline_char = HOLD_FIRE_CHARACTER
             if dist_x < TARGETING_SENSITIVITY and dist_y < TARGETING_SENSITIVITY:
-                sys.stdout.write("fire\n")
-            else:
-                sys.stdout.write(str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\r\n")
+                #Set endline character to fire character
+                endline_char = FIRE_CHARACTER
+
+            sys.stdout.write("#" + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + endline_char)
 
             if DEBUG:
                 #place circle over center of face
@@ -52,8 +57,12 @@ while True:
     else:
         no_target_frame_count += 1
         if no_target_frame_count > RETURN_ORIGIN_FRAME_COUNT:
-            sys.stdout.write("home\n")
+            #issue command for turret to return to default position
+            sys.stdout.write("@\n")
             no_target_frame_count = 0
+        else:
+            #dont move turret
+            sys.stdout.write("#0|0\n")
 
 
     # Debug stuff
