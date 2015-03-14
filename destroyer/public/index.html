@@ -3,19 +3,8 @@
 <head>
   <meta name="viewport" content="width=320, initial-scale=1"/>
   <title>jsmpeg streaming</title>
-  <style type="text/css">
-    body {
-      background: #333;
-      text-align: center;
-      margin-top: 10%;
-    }
-    #videoCanvas {
-      /* Always stretch the canvas to 640x480, regardless of its
-      internal size. */
-      width: 640px;
-      height: 480px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
 </head>
 <body>
   <!-- The Canvas size specified here is the "initial" internal resolution. jsmpeg will
@@ -38,7 +27,6 @@
       </td></tr>
       <tr><td></td><td><div class="controlButton" id="down">down</div></td><td></td></tr>
     </table>
-
   </div>
   <script type="text/javascript" src="jsmpg.js"></script>
   <script type="text/javascript">

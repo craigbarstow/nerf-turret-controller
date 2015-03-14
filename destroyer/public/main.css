@@ -1,0 +1,30 @@
+body {
+      background: #333;
+      text-align: center;
+      margin-top: 10%;
+    }
+
+#videoCanvas {
+  /* Always stretch the canvas to 640x480, regardless of its
+  internal size. */
+  width: 640px;
+  height: 480px;
+  margin: 0 auto;
+}
+
+table {
+  margin: 0 auto;
+}
+
+td {
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  border-radius: 2px;
+}
+
+.controlButton {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}

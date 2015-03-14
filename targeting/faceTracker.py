@@ -1,4 +1,7 @@
 import cv2, sys
+import serial
+
+#/dev/tty.usbserial-AM01YQFQ
 
 DEBUG = False
 TARGETING_SENSITIVITY = 15
@@ -12,6 +15,8 @@ no_target_frame_count = 0
 
 faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_alt.xml')
 video_capture = cv2.VideoCapture(0)
+
+ser = serial.Serial(1, 115200, timeout=0, parity=serial.PARITY_NONE, rtscts=0)
 
 while True:
     ret, frame = video_capture.read()
