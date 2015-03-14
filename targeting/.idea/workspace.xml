@@ -26,8 +26,8 @@
       <file leaf-file-name="faceTracker.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/faceTracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24539877" vertical-offset="0" max-vertical-offset="1320">
-              <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.601227" vertical-offset="606" max-vertical-offset="1320">
+              <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -320,8 +320,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/faceTracker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24539877" vertical-offset="0" max-vertical-offset="1320">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.601227" vertical-offset="606" max-vertical-offset="1320">
+          <caret line="60" column="48" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
