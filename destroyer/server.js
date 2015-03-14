@@ -1,5 +1,5 @@
 // FFMPEG Command to Run Streaming
-// ffmpeg -f qtkit -i "0" -s 640x480 -f mpeg1video -b 10k -r 20 http://localhost:8082/password/640/480
+// ffmpeg -f qtkit -i "0" -s 640x480 -f mpeg1video -b 800k -r 30 http://localhost:8082/password/640/480
 var fs = require('fs');
 var express = require('express')
 var app = express();
