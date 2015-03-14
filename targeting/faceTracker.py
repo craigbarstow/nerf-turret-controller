@@ -3,8 +3,8 @@ import cv2, sys
 DEBUG = False
 TARGETING_SENSITIVITY = 15
 RETURN_ORIGIN_FRAME_COUNT = 20
-HOLD_FIRE_CHARACTER = "\n"
-FIRE_CHARACTER = "\r"
+HOLD_FIRE_CHARACTER = "="
+FIRE_CHARACTER = "!"
 
 pos_relative_origin_x = 0
 pos_relative_origin_y = 0
@@ -18,10 +18,10 @@ while True:
     #get image size in px
     img_height, img_width, img_depth = frame.shape
 
-    grayscale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    grayscale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(
-        grayscale,
+        grayscale_frame,
         scaleFactor=1.1,
         minNeighbors=5,
         minSize=(30, 30),
@@ -44,12 +44,12 @@ while True:
 
             #FIXME: experiment with these values
             #Set hold fire character as default
-            endline_char = HOLD_FIRE_CHARACTER
-            if dist_x < TARGETING_SENSITIVITY and dist_y < TARGETING_SENSITIVITY:
+            start_char = HOLD_FIRE_CHARACTER
+            if abs(dist_x) < TARGETING_SENSITIVITY and abs(dist_y) < TARGETING_SENSITIVITY:
                 #Set endline character to fire character
-                endline_char = FIRE_CHARACTER
+                start_char = FIRE_CHARACTER
 
-            sys.stdout.write("#" + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + endline_char)
+            sys.stdout.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
 
             if DEBUG:
                 #place circle over center of face
@@ -58,11 +58,11 @@ while True:
         no_target_frame_count += 1
         if no_target_frame_count > RETURN_ORIGIN_FRAME_COUNT:
             #issue command for turret to return to default position
-            sys.stdout.write("@\n")
+            sys.stdout.write(HOLD_FIRE_CHARACTER + "r\n")
             no_target_frame_count = 0
         else:
             #dont move turret
-            sys.stdout.write("#0|0\n")
+            sys.stdout.write(HOLD_FIRE_CHARACTER + "0|0\n")
 
 
     # Debug stuff
