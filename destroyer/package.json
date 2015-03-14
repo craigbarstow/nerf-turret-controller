@@ -1,0 +1,14 @@
+{
+  "name": "DestroyerOfWorlds",
+  "version": "0.0.0",
+  "description": "Turret controller of doom!",
+  "main": "server.js",
+  "author": "Ben Calegari, Craig Barstow, Alex Seiger",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~4.12.2",
+    "request": "latest",
+    "ws": "latest",
+    "fs": "latest"
+  }
+}
