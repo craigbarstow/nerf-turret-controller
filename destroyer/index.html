@@ -22,7 +22,6 @@
     change this internal resolution to whatever the source provides. The size the
     canvas is displayed on the website is dictated by the CSS style.
   -->
-  <p> stuff? </p>
   <canvas id="videoCanvas" width="640" height="480">
     <p>
       Please use a browser that supports the Canvas Element, like
@@ -40,7 +39,7 @@
     ctx.fillText('Loading...', canvas.width/2-30, canvas.height/3);
 
     // Setup the WebSocket connection and start the player
-    var client = new WebSocket( 'ws://example.com:8084/' );
+    var client = new WebSocket( 'ws://localhost:8084/' );
     var player = new jsmpeg(client, {canvas:canvas});
   </script>
 </body>
