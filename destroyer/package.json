@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "~4.12.2",
     "request": "latest",
-    "ws": "latest"
+    "ws": "latest",
+    "fs": "latest"
   }
 }

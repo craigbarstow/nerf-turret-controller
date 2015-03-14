@@ -1,6 +1,9 @@
 // FFMPEG Command to Run Streaming
 // ffmpeg -f qtkit -i "0" -s 640x480 -f mpeg1video -b 10k -r 20 http://localhost:8082/password/640/480
-
+var fs = require('fs');
+var express = require('express')
+var app = express();
+app.use(express.static('public'));
 
 if( process.argv.length < 3 ) {
   console.log(
@@ -13,10 +16,14 @@ if( process.argv.length < 3 ) {
 var STREAM_SECRET = process.argv[2],
   STREAM_PORT = process.argv[3] || 8082,
   WEBSOCKET_PORT = process.argv[4] || 8084,
+  SITE_PORT = 9000,
   STREAM_MAGIC_BYTES = 'jsmp'; // Must be 4 bytes
 
 var width = 320,
   height = 240;
+
+// Load index.
+var app_server = app.listen(SITE_PORT);
 
 // Websocket Server
 var socketServer = new (require('ws').Server)({port: WEBSOCKET_PORT});
@@ -72,5 +79,7 @@ var streamServer = require('http').createServer( function(request, response) {
   }
 }).listen(STREAM_PORT);
 
+
+console.log('Connect to site on localhost:' + SITE_PORT);
 console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/<secret>/<width>/<height>');
 console.log('Awaiting WebSocket connections on ws://127.0.0.1:'+WEBSOCKET_PORT+'/');
