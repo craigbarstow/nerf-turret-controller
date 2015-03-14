@@ -1,9 +1,4 @@
-// FFMPEG Command to Run Streaming
-// ffmpeg -f qtkit -i "0" -s 640x480 -f mpeg1video -b 800k -r 30 http://localhost:8082/password/640/480
-var fs = require('fs');
-var express = require('express')
-var app = express();
-app.use(express.static('public'));
+#!/usr/bin/env node
 
 if( process.argv.length < 3 ) {
   console.log(
@@ -13,17 +8,84 @@ if( process.argv.length < 3 ) {
   process.exit();
 }
 
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('destroyer2:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+// Set Port vars
 var STREAM_SECRET = process.argv[2],
   STREAM_PORT = process.argv[3] || 8082,
   WEBSOCKET_PORT = process.argv[4] || 8084,
-  SITE_PORT = 9000,
+  SITE_PORT = process.env.PORT || 8000,
   STREAM_MAGIC_BYTES = 'jsmp'; // Must be 4 bytes
 
 var width = 320,
   height = 240;
 
-// Load index.
-var app_server = app.listen(SITE_PORT);
+app.set('port', SITE_PORT);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided d, on all network interfaces.
+ */
+
+server.listen(SITE_PORT);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
 
 // Websocket Server
 var socketServer = new (require('ws').Server)({port: WEBSOCKET_PORT});
@@ -79,7 +141,6 @@ var streamServer = require('http').createServer( function(request, response) {
   }
 }).listen(STREAM_PORT);
 
-
-console.log('Connect to site on localhost:' + SITE_PORT);
+console.log('Visit site on localhost:'+SITE_PORT);
 console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/<secret>/<width>/<height>');
 console.log('Awaiting WebSocket connections on ws://127.0.0.1:'+WEBSOCKET_PORT+'/');

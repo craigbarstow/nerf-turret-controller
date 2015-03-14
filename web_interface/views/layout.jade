@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=320, initial-scale=1')
+    title jsmpeg streaming
+    style(type='text/css').
+      body {
+      background: #333;
+      text-align: center;
+      margin-top: 10%;
+      }
+      #videoCanvas {
+      /* Always stretch the canvas to 640x480, regardless of its
+      internal size. */
+      width: 640px;
+      height: 480px;
+      }
+  body
+    block content
+    script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.3.js')
+    script(type='text/javascript', src='javascripts/underscore.js')
+    script(type='text/javascript', src='javascripts/jsmpg.js')
+    script(type='text/javascript', src='javascripts/fireControls.js')
+    script(type='text/javascript').
+      // Show loading notice
+      var canvas = document.getElementById('videoCanvas');
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#444';
+      ctx.fillText('Loading...', canvas.width/2-30, canvas.height/3);
+      // Setup the WebSocket connection and start the player
+      var client = new WebSocket( 'ws://localhost:8084/' );
+      var player = new jsmpeg(client, {canvas:canvas});

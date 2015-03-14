@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  //
+      The Canvas size specified here is the "initial" internal resolution. jsmpeg will
+      change this internal resolution to whatever the source provides. The size the
+      canvas is displayed on the website is dictated by the CSS style.
+  canvas#videoCanvas(width='640', height='480')
+  a(href='#')
+    #showHideControlsButton
+  #turretControlWrapper
+    table
+      tr
+        td
+        td
+          #up.controlButton up
+        td
+      tr
+        td
+          #left.controlButton left
+        td
+          #fire.controlButton fire
+        td
+          #right.controlButton right
+      tr
+        td
+        td
+          #down.controlButton down
+        td
