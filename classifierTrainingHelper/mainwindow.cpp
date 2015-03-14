@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <QImage>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,6 +61,12 @@ void MainWindow::displayFrame()
 {
     Mat frame_Mat = _videoMan->getFrame(_frameCount);
     //QImage frame = Mat2QImage(frame_Mat);
+    //Convert image to QImage and display in QGraphicsView
+    //QImage frame = cvMatToQImage(frame_Mat);
+    /*
+     * create qpixmap
+     * add pixmat to qgraphicsscene
+     * /
 }
 
 
