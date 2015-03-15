@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'rubyserial'
 require 'pry'
+require 'rack/cors'
 
 MOTION_AMOUNT = 25
 #configure with raspberry pi serial port location
@@ -40,3 +41,11 @@ post '/manual-override/:true?' do
     serialport.write("=m-\n")
   end
 end
+
+use Rack::Cors do
+  allow do
+  origins '*'
+  resource '/public/*', :headers => :any, :methods => :get
+  end
+end
+
