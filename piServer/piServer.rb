@@ -2,7 +2,7 @@ require 'sinatra'
 require 'rubyserial'
 require 'pry'
 
-MOTION_AMOUNT = 5
+MOTION_AMOUNT = 25
 serialport = Serial.new '/dev/tty.usbserial-AM01YQFQ', 115200
 
 #uncomment for local testing

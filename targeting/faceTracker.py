@@ -1,9 +1,7 @@
 import cv2, sys
 import serial
 
-#/dev/tty.usbserial-AM01YQFQ
-
-DEBUG = False
+DEBUG = True
 TARGETING_SENSITIVITY = 15
 RETURN_ORIGIN_FRAME_COUNT = 20
 HOLD_FIRE_CHARACTER = "="
@@ -16,7 +14,8 @@ no_target_frame_count = 0
 faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_alt.xml')
 video_capture = cv2.VideoCapture(0)
 
-ser = serial.Serial(1, 115200, timeout=0, parity=serial.PARITY_NONE, rtscts=0)
+if not DEBUG:
+    ser = serial.Serial('/dev/tty.usbserial-AM01YQFQ', 115200, timeout=0)
 
 while True:
     ret, frame = video_capture.read()
@@ -54,20 +53,26 @@ while True:
                 #Set endline character to fire character
                 start_char = FIRE_CHARACTER
 
-            sys.stdout.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
-
             if DEBUG:
-                #place circle over center of face
+                sys.stdout.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
                 cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
+            else:
+                ser.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
     else:
         no_target_frame_count += 1
         if no_target_frame_count > RETURN_ORIGIN_FRAME_COUNT:
             #issue command for turret to return to default position
-            sys.stdout.write(HOLD_FIRE_CHARACTER + "r\n")
+            if DEBUG:
+                sys.stdout.write(HOLD_FIRE_CHARACTER + "r\n")
+            else:
+                ser.write(HOLD_FIRE_CHARACTER + "r\n")
             no_target_frame_count = 0
         else:
             #dont move turret
-            sys.stdout.write(HOLD_FIRE_CHARACTER + "0|0\n")
+            if DEBUG:
+                sys.stdout.write(HOLD_FIRE_CHARACTER + "0|0\n")
+            else:
+                ser.write(HOLD_FIRE_CHARACTER + "0|0\n")
 
 
     # Debug stuff
@@ -77,6 +82,7 @@ while True:
             break
 
 video_capture.release()
+ser.close()
 
 if DEBUG:
     cv2.destroyAllWindows()
