@@ -66,7 +66,7 @@ void MainWindow::displayFrame()
     /*
      * create qpixmap
      * add pixmat to qgraphicsscene
-     * /
+     */
 }
 
 

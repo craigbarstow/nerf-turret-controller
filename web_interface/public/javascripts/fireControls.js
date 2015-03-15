@@ -22,12 +22,7 @@ Destroyer.FireControls = function(){
   }
 
   up = function(){
-    $.ajax({
-        method: 'GET',
-        dataType: 'jsonp',
-        url: turretHost + 'move_y/up',
-        params: []
-      })
+    $.post( turretHost + 'move/down')
       .done(function() {
         'Pressed Up.'
       })
@@ -36,7 +31,7 @@ Destroyer.FireControls = function(){
       })
   }
   down = function(){
-    $.post( turretHost + 'down')
+    $.post( turretHost + 'move/down')
       .done(function() {
         'Pressed Down.'
       })
@@ -46,7 +41,7 @@ Destroyer.FireControls = function(){
   }
   left = function(){
     console.log()
-    $.post( turretHost + 'left')
+    $.post( turretHost + 'move/left')
       .done(function() {
         'Pressed Left.'
       })
@@ -55,7 +50,7 @@ Destroyer.FireControls = function(){
       })
   }
   right = function(){
-    $.post( turretHost + 'right')
+    $.post( turretHost + 'move/right')
       .done(function() {
         'Pressed Right.'
       })
