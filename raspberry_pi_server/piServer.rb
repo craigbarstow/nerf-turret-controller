@@ -48,4 +48,3 @@ use Rack::Cors do
   resource '/public/*', :headers => :any, :methods => :get
   end
 end
-
