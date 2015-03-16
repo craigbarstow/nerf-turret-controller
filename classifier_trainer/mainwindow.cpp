@@ -25,8 +25,8 @@ void MainWindow::on_btnOpenVideo_clicked()
     if(this->_filePath.isEmpty()) {
         return;
     } else {
-     ui->lineEditFilename->setText(_filePath);
-     _videoMan->openConnection(_filePath);
+        if (_videoMan->openConnection(_filePath))
+            ui->lineEditFilename->setText(_filePath);
     }
 }
 

@@ -2,7 +2,7 @@ import cv2, sys
 import serial
 
 DEBUG = True
-TARGETING_SENSITIVITY = 15
+TARGETING_SENSITIVITY = 25
 RETURN_ORIGIN_FRAME_COUNT = 20
 HOLD_FIRE_CHARACTER = "="
 FIRE_CHARACTER = "!"
@@ -74,7 +74,6 @@ while True:
             else:
                 ser.write(HOLD_FIRE_CHARACTER + "0|0\n")
 
-
     # Debug stuff
     if DEBUG:
         cv2.imshow("Face Tracker", frame)
@@ -82,7 +81,8 @@ while True:
             break
 
 video_capture.release()
-ser.close()
+if not DEBUG:
+    ser.close()
 
 if DEBUG:
     cv2.destroyAllWindows()

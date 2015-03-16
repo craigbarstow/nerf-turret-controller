@@ -13,7 +13,7 @@ class VideoManager
 public:
     VideoManager();
     ~VideoManager();
-    void openConnection(QString filePath);
+    bool openConnection(QString filePath);
     void closeConnection();
     Mat getFrame(int frameNum);
 

@@ -1,6 +1,8 @@
 #include "videomanager.h"
 #include "opencv2/opencv.hpp"
 #include <opencv2/highgui/highgui.hpp>
+#include <QDebug>
+#include <QMessageBox>
 
 VideoManager::VideoManager()
 {
@@ -12,10 +14,20 @@ VideoManager::~VideoManager()
 
 }
 
-void VideoManager::openConnection(QString filePath) {
+bool VideoManager::openConnection(QString filePath) {
     //_video = new VideoCapture(filePath.toStdString());
     _video = new VideoCapture;//(0); //this works
-    _video->open(filePath.toStdString());
+    if (_video->open(filePath.toStdString())) {
+        QString s = "video successfully opened";
+        qDebug() << s;
+        return true;
+    } else {
+        QMessageBox* videoOpenErrorBox = new QMessageBox;
+        videoOpenErrorBox->setWindowTitle("Video Load Error");
+        videoOpenErrorBox->setText("The video failed to load. Please select a different video and try again.");
+        videoOpenErrorBox->exec();
+        return false;
+    }
 }
 
 
