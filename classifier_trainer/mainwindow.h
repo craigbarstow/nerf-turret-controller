@@ -37,6 +37,7 @@ private:
 
     void updateFrameCountLabel();
     void displayFrame();
+    void enableVideoControls(bool enabled);
 };
 
 #endif // MAINWINDOW_H

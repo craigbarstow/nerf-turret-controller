@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEditFilename->setReadOnly(true);
     _videoMan = new VideoManager;
     _frameCount = 0;
+    enableVideoControls(false);
 }
 
 MainWindow::~MainWindow()
@@ -22,11 +23,13 @@ void MainWindow::on_btnOpenVideo_clicked()
 {
     //FIXME: only accept movie extensions
     _filePath = QFileDialog::getOpenFileName(this, "Select a movie file.", "/Users/Craig");
-    if(this->_filePath.isEmpty()) {
+    if(!this->_filePath.isEmpty() && _videoMan->openConnection(_filePath)) {
+        ui->lineEditFilename->setText(_filePath);
+        enableVideoControls(true);
         return;
     } else {
-        if (_videoMan->openConnection(_filePath))
-            ui->lineEditFilename->setText(_filePath);
+        enableVideoControls(false);
+        return;
     }
 }
 
@@ -55,6 +58,13 @@ void MainWindow::on_btnCloseVideo_clicked()
 {
     ui->lineEditFilename->setText("");
     _videoMan->closeConnection();
+    enableVideoControls(false);
+}
+
+void MainWindow::enableVideoControls(bool enabled) {
+    ui->btnCloseVideo->setEnabled(enabled);
+    ui->btnNextFrame->setEnabled(enabled);
+    ui->btnPreviousFrame->setEnabled(enabled);
 }
 
 void MainWindow::displayFrame()
