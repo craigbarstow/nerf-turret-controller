@@ -1,7 +1,11 @@
+import io
 import cv2, sys
 import serial
+import picamera
+import picamera.array
+import numpy as np
 
-DEBUG = True
+DEBUG = 1
 TARGETING_SENSITIVITY = 25
 RETURN_ORIGIN_FRAME_COUNT = 20
 HOLD_FIRE_CHARACTER = "="
@@ -9,16 +13,32 @@ FIRE_CHARACTER = "!"
 
 no_target_frame_count = 0
 
-faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_alt.xml')
-video_capture = cv2.VideoCapture(0)
+#saving the picture to an in-program stream rather than a file
+stream = io.BytesIO()
+
+#to speed things up, lower the resolution of the camera
+CAMERA_WIDTH = 320
+CAMERA_HEIGHT = 240
+
+#faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_alt.xml')
+faceCascade = cv2.CascadeClassifier('lbpcascade_frontalface.xml')
+#video_capture = cv2.VideoCapture(0)
 
 if not DEBUG:
-    ser = serial.Serial('/dev/tty.usbserial-AM01YQFQ', 115200, timeout=0)
+    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=0)
 
 while True:
-    ret, frame = video_capture.read()
+    with picamera.PiCamera() as camera:
+        #camera.resolution = (CAMERA_WIDTH, CAMERA_HEIGHT)
+        #camera.capture(stream, format='jpeg')
+	with picamera.array.PiRGBArray(camera) as stream:
+	    camera.capture(stream, format='bgr')
+	    frame = stream.array
+    #data = np.fromstring(stream.getvalue(), dtype=np.uint8)
+    #frame = cv2.imdecode(data, 1)
+    #ret, frame = video_capture.read()
     #get image size in px
-    img_height, img_width, img_depth = frame.shape
+    #img_height, img_width, img_depth = frame.shape
 
     grayscale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -29,7 +49,8 @@ while True:
         minSize=(30, 30),
         flags=cv2.cv.CV_HAAR_FIND_BIGGEST_OBJECT
     )
-
+    
+    #faces = faceCascade.detectMultiScale(grayscale_frame, 1.3, 5)
     #get dimensions of largest face
     if len(faces) > 0:
         for (x, y, w, h) in faces:
@@ -53,7 +74,7 @@ while True:
 
             if DEBUG:
                 sys.stdout.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
-                cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
+                #cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
             else:
                 ser.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
                 cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
@@ -75,7 +96,7 @@ while True:
 
     # Debug stuff
     if DEBUG:
-        cv2.imshow("Face Tracker", frame)
+        #cv2.imshow("Face Tracker", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
