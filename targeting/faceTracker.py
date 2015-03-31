@@ -7,8 +7,6 @@ RETURN_ORIGIN_FRAME_COUNT = 20
 HOLD_FIRE_CHARACTER = "="
 FIRE_CHARACTER = "!"
 
-pos_relative_origin_x = 0
-pos_relative_origin_y = 0
 no_target_frame_count = 0
 
 faceCascade = cv2.CascadeClassifier('./haarcascade_frontalface_alt.xml')
@@ -58,6 +56,7 @@ while True:
                 cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
             else:
                 ser.write(start_char + str(face_x_center - center_coord_x) + "|" + str(center_coord_y - face_y_center) + "\n")
+                cv2.circle(frame, (face_x_center, face_y_center), 10, (0, 0, 255), 17)
     else:
         no_target_frame_count += 1
         if no_target_frame_count > RETURN_ORIGIN_FRAME_COUNT:
